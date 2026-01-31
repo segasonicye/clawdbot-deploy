@@ -1,0 +1,44 @@
+name: Start Clawdbot
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  start:
+    runs-on: ubuntu-latest
+    permissions:
+      codespaces: write
+    steps:
+      - name: Start Codespace
+        run: |
+          echo "Starting Codespace..."
+          codespace_id=$(gh api \
+            --method POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            /repos/segasonicye/clawdbot-deploy/codespaces \
+            -f ref="main" \
+            -f machine_type="standardLinux32gb" \
+            -f display_name="Clawdbot Gateway Auto" \
+            --jq .id)
+          
+          echo "Codespace ID: $codespace_id"
+          echo "Waiting for Codespace to be ready..."
+          
+          # 等待Codespaces就绪
+          for i in {1..30}; do
+            status=$(gh api \
+              /user/codespaces/$codespace_id \
+              --jq .state)
+            
+            echo "Status: $status"
+            
+            if [ "$status" = "Available" ]; then
+              echo "Codespace is ready!"
+              break
+            fi
+            
+            sleep 10
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
