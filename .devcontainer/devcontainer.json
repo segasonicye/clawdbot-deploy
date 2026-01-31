@@ -4,6 +4,9 @@
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts"
+    },
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
     }
   },
   "postCreateCommand": "npm install -g @clawdbot/cli && clawdbot configure --section gateway --set run.background=true",
