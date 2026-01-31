@@ -1,0 +1,14 @@
+name: Keep Codespace Alive
+on:
+  schedule:
+    - cron: '0 */30 * * * *'  # 每30分钟运行一次
+  workflow_dispatch:  # 也支持手动触发
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    permissions:
+      codespaces: write
+    steps:
+      - name: Ping Codespace
+        run: echo "Keeping Codespace alive at $(date)"

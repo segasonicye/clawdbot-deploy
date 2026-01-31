@@ -9,7 +9,6 @@
       "version": "latest"
     }
   },
-  "postCreateCommand": "npm install -g @clawdbot/cli && clawdbot configure --section gateway --set run.background=true",
   "customizations": {
     "codespaces": {
       "openFiles": []
