@@ -7,6 +7,9 @@
     },
     "ghcr.io/devcontainers/features/sshd:1": {
       "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "version": "latest"
     }
   },
   "customizations": {
@@ -19,5 +22,15 @@
       "label": "Clawdbot Gateway",
       "onAutoForward": "notify"
     }
-  }
+  },
+  "remoteEnv": {
+    "CLAWDBOT_RUN_BACKGROUND": "true",
+    "CLAWDBOT_ENABLE_BROWSER": "true"
+  },
+  "runArgs": ["--init"],
+  "containerEnv": {
+    "TERM": "xterm"
+  },
+  "updateRemoteUserUID": true,
+  "userEnvProbe": false
 }
